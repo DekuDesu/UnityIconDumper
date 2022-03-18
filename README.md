@@ -13,10 +13,12 @@ Example (no output file)
 Assets/RoR2/Base/Characters/Merc/texMercIcon.png
 Found 1 icons
 ```
-Example (outputting to file)
+Example (outputting to file)  
+
 `powershell.exe`
 ```powershell
 .\IconDumper.exe "catalog.json" > output.txt
+```  
 
 `output.txt`
 ```txt
