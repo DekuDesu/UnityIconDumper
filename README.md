@@ -1,5 +1,5 @@
 ## Unity Icon Dumper
-Dumps the unity assets paths for all `.png` files located within `catalog.json` for Unity Games.
+Dumps the unity assets paths for all files with the provided extension located within `catalog.json` for Unity Streaming Assets catalogs.
 
 ### Usage
 Ran from command line  
