@@ -1,0 +1,1 @@
+nothing,"Assets/RoR2/Base/Characters/Merc/texMercIcon.png","not valid.XML"
