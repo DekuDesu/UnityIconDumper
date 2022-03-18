@@ -9,7 +9,7 @@ IconDumper.exe <catalog_path> <extension> [| output]
 ```  
 
 ```powershell
-.\IconDumper.exe path_to_catalog.json > path_to_output_file.txt
+.\IconDumper.exe path_to_catalog.json png > path_to_output_file.txt
 ```
 
 Example (no output file)
