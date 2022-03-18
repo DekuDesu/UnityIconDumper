@@ -17,7 +17,7 @@ bool StreamEquals(FILE* stream, const char* target, size_t length);
 
 int main(int argc, char** argv)
 {
-	if (argc <= 1)
+	if (argc <= 2)
 	{
 		fprintf(stdout, "Path to catalog.json must be provided usage ./IconDumper.exe \"<path>/catalog.json\" <extension>\n");
 		exit(-1);
@@ -26,6 +26,16 @@ int main(int argc, char** argv)
 	const char* path = argv[1];
 
 	const char* targetExtension = argv[2];
+
+	size_t extensionLength = strlen(targetExtension) + 2;
+
+	char extension[BUFFER_SIZE];
+
+	memcpy(extension, targetExtension, min(BUFFER_SIZE, extensionLength));
+
+	extension[max(min(BUFFER_SIZE, extensionLength) - 1, 0)] = '\0';
+
+	extension[max(min(BUFFER_SIZE, extensionLength) - 2, 0)] = '\"';
 
 	FILE* stream;
 	errno_t error = fopen_s(&stream, path, "rb");
@@ -39,7 +49,7 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
-	size_t count = DumpIcons(stream, targetExtension);
+	size_t count = DumpIcons(stream, extension);
 
 	fclose(stream);
 
@@ -86,7 +96,7 @@ size_t DumpIcons(FILE* stream, const char* targetExtension)
 			{
 				// null terminate the current character
 				buffer[index] = '\0';
-				fprintf(stdout, "%s.png\n", buffer);
+				fprintf(stdout, "\"%s.%s\n", buffer, targetExtension);
 				++count;
 				index = 0;
 				searching = false;
