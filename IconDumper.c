@@ -10,7 +10,7 @@
 #define isnt !=
 #define null NULL
 
-size_t DumpIcons(FILE* stream);
+size_t DumpIcons(FILE* stream, const char* targetExtension);
 bool StreamEquals(FILE* stream, const char* target, size_t length);
 
 #define BUFFER_SIZE 1024
@@ -19,11 +19,13 @@ int main(int argc, char** argv)
 {
 	if (argc <= 1)
 	{
-		fprintf(stdout, "Path to catalog.json must be provided usage ./IconDumper.exe \"<path>/catalog.json\"\n");
+		fprintf(stdout, "Path to catalog.json must be provided usage ./IconDumper.exe \"<path>/catalog.json\" <extension>\n");
 		exit(-1);
 	}
 
 	const char* path = argv[1];
+
+	const char* targetExtension = argv[2];
 
 	FILE* stream;
 	errno_t error = fopen_s(&stream, path, "rb");
@@ -37,14 +39,14 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
-	size_t count = DumpIcons(stream);
+	size_t count = DumpIcons(stream, targetExtension);
 
 	fclose(stream);
 
 	fprintf(stdout, "Found %lli icons\n", count);
 }
 
-size_t DumpIcons(FILE* stream)
+size_t DumpIcons(FILE* stream, const char* targetExtension)
 {
 	// pattern "*.png"
 	
@@ -60,9 +62,7 @@ size_t DumpIcons(FILE* stream)
 		if it does output to stdout
 	*/
 
-	char target[] = "png\"";
-
-	size_t endIndex = 0;
+	size_t targetLength = strlen(targetExtension);
 
 	size_t count = 0;
 
@@ -82,7 +82,7 @@ size_t DumpIcons(FILE* stream)
 		}else if(searching)
 		{
 			// check to see if it's the beginning of end of target
-			if (c == '.' && StreamEquals(stream, target, sizeof(target)-1))
+			if (c == '.' && StreamEquals(stream, targetExtension, targetLength))
 			{
 				// null terminate the current character
 				buffer[index] = '\0';

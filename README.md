@@ -2,14 +2,19 @@
 Dumps the unity assets paths for all `.png` files located within `catalog.json` for Unity Games.
 
 ### Usage
-Ran from command line
+Ran from command line  
+
+```
+IconDumper.exe <catalog_path> <extension> [| output]
+```  
+
 ```powershell
 .\IconDumper.exe path_to_catalog.json > path_to_output_file.txt
 ```
 
 Example (no output file)
 ```powershell
-.\IconDumper.exe catalog.json
+.\IconDumper.exe catalog.json png
 Assets/RoR2/Base/Characters/Merc/texMercIcon.png
 Found 1 icons
 ```
@@ -17,7 +22,7 @@ Example (outputting to file)
 
 `powershell.exe`
 ```powershell
-.\IconDumper.exe catalog.json > output.txt
+.\IconDumper.exe catalog.json png > output.txt
 ```  
 
 `output.txt`
